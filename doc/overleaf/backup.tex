@@ -1,0 +1,98 @@
+\section{\uppercase{Introduction}}
+\label{sec:introduction}
+
+This section introduces Simulation-based Digital Twins and the optimization process in simulation-based Digital Twins. 
+\begin{itemize}
+    \item Further, we discuss Simulation-based optimization (SBO) (adheres to proposed work) and Back-box optimization. 
+\end{itemize}
+
+\subsection{Literature review}
+relevant literature on Metamodels/Surrogate Models.
+\begin{itemize}
+    \item A brief survey of Simulation-Based Optimization using Surrogate Models and the most popular Surrogate Models/Metamodels being used to increase the efficiency of the optimization process in SBO.
+    \item Different Metamodels are available (Linear Regression, Response surface, Decision Tree, Radial Basis Functions, Kriging, Neural Networks).
+\end{itemize}
+
+\subsection{Motivation for the Case Study}
+Choosing the appropriate Metamodel and optimizer is crucial for a reasonably accurate and fast optimization process.
+The Simulation Model component in Digital Twin:
+\begin{itemize}
+    \item is often complex and time-consuming
+    \item is Stochastic
+    \item the number of input parameters is large
+\end{itemize}
+The optimization process needs quick evaluations of the simulation model for different input parameter settings. Metamodel facilitate it.
+\subsection{Metamodels}
+\begin{itemize}
+    \item Definition
+    \item Types of Metamodels: 
+    \begin{itemize}
+        \item Gaussian Process Regression,
+        \item Neural Networks Metamodels.
+    \end{itemize}
+    \item Challenges in choosing a Metamodel.
+    \item Metamodel parameters
+\end{itemize}
+
+\subsection{Open Source Optimizers}
+\begin{itemize}
+    \item List of \textit{scipy.optimize} optimizers and brief introduction.
+    \item Challenges in choosing a suitable optimizer.
+\end{itemize}
+The organization of the paper.
+\section{\uppercase{The Case study: Inventory optimization in Supply Chain}}
+\subsection{Problem Setting}
+\begin{itemize}
+    \item Description of the system
+    \item Assumptions, Input parameters, Performance measures, Bounds
+\end{itemize}
+
+\subsection{The Simulation Model}
+\begin{itemize}
+    \item Estimating parameter values (num of days, num of simulations)
+    \item Analysis of time and space complexity
+    \item Exhaustive evaluation 
+    \item Visualization (contours/heatmaps/3D sections)
+\end{itemize}
+\subsection{Fitting a Metamodel}
+
+\begin{itemize}
+    \item Estimation of parameter values for Metamodels\\
+    \textbf{GPR:}
+    \begin{enumerate}
+        \item Which Kernel to use?
+        \item Kernel parameter values.
+    \end{enumerate}
+     \textbf{NN:} 
+     \begin{enumerate}
+         \item Type of NN,
+         \item Number of hidden layers,
+         \item number of neurons in each layer
+     \end{enumerate}
+    \item Sampling Method?
+    \item Estimating $N$ (number of points to sample)
+    \item validating the Metamodel (measure of match between $f(X)$ and $g(X))$
+    \begin{enumerate}
+        \item accuracy of $g(X)$ (sum square difference)
+        \item does it capture original maxima/minima?
+        \item does it retain gradient information of $f(X)$?
+    \end{enumerate}
+    \item Visualization (contours/heat-maps/3D sections)
+\end{itemize}
+
+\subsection{Optimization}
+\begin{itemize}
+    \item Optimizing the system \\(without Metmodels: Exhaustive Evaluation)\\ Estimating the \textit{actual minimum} 
+    \item optimization with Metamodels
+\end{itemize}
+\section{\uppercase{Results}}
+\begin{itemize}
+    \item Comparative results of optimization process with and without Metamodels. (table)
+    \item Analysis of time complexity
+    \item Listing/concluding of Metamodel and optimizer pairs that performed best
+\end{itemize}
+\section{\uppercase{Conclusion}}
+\begin{itemize}
+    \item Conclusion
+    \item Future Work
+\end{itemize}

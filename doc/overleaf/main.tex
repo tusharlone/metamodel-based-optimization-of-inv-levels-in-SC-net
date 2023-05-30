@@ -1,0 +1,75 @@
+\documentclass[a4paper,twoside]{article}
+
+\usepackage{epsfig}
+\usepackage{subcaption}
+\usepackage{calc}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{pslatex}
+\usepackage{apalike}
+\usepackage[bottom]{footmisc}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{SCITEPRESS}     % Please add other packages that you may need BEFORE the SCITEPRESS.sty package.
+\usepackage{graphics}
+\usepackage{lscape}
+\usepackage{float}
+\usepackage{url}
+\usepackage{multirow}
+\begin{document}
+\title{An Open Tool-set for Simulation, Design-space Exploration and Optimization of Supply Chains and Inventory Problems}
+
+%\title{Case Study-based Evaluation of the Suitability and Efficacy of Different Open-source Metamodeling approaches and Optimizers for Simulation-based Digital Twins}
+
+%\author{\authorname{Tushar Lone\orcidAuthor{0000-0003-0008-0429}, Lekshmi P.\orcidAuthor{0000-0001-5464-6032},  and Neha Karanjkar\orcidAuthor{0000-0003-3111-1435}}
+%\affiliation{Indian Institute of Technology Goa, India}
+%\email{\{lekshmi20231101, tushar20231102, nehak\}@iitgoa.ac.in}
+%}
+
+\keywords{Supply Chains, Inventory, Discrete-Event Simulation, Python, Meta-models, Optimization}
+
+\abstract{Simulation plays a key role in the design, analysis and optimization of supply chain systems.  While analytical models may suffice for very simple systems with ideal behavior, a detailed stochastic discrete-event model becomes necessary to capture component behaviors and complex structures of modern supply chains with reasonable accuracy.  However,  simulation-based optimization is often difficult owing to the large number of decision variables, the computational cost of performance estimation using multiple stochastic simulation runs and non-convex, black-box objective functions.  Meta-models can assist in the optimization process, but the process of choosing the right meta-model type, the number of data points to build the meta-model and the right optimizer can be non-trivial and can significantly affect the results.  
+%
+This paper presents the design overview of  \textbf{InventOpt} - a Python-based, open tool-set for simulation, design space exploration and optimization of supply chains and inventory systems. InventOpt consists of a Python library of component models  that can be instantiated and connected together to model and simulate complex supply chains. In addition, InventOpt contains a GUI-based tool to assist the user in planning design of experiments, visualizing the objective functions over a multi-dimensional design space, building meta-models by selecting an appropriate number of data points and performing an optimization over these meta-models to identify promising regions and optimal points in the design space. In order to validate the proposed approach, we present a detailed case study of simulation-based optimization of inventory levels in a supply chain with 8 design parameters. We present our observations regarding  choices such as the type of meta-model, number of simulation runs used for building the meta-model, the choice of optimizer and the trade-off between computational cost and quality of results. Each step in this case study has been implemented using open Python libraries. The case study serves as a basis for the design and implementation of InventOpt.}
+
+\onecolumn \maketitle \normalsize \setcounter{footnote}{0} \vfill
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{\uppercase{Introduction}}
+\label{sec:introduction}
+\input{section_intro}
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{\uppercase{Related Work}}
+\label{sec:relatedwork}
+This section presents an overview of the commercial and free/open tools available for various aspects of supply chain design and analysis. Commercial tools such as Anylogic \cite{Anylogic} (and its logistics-specific solution, Anylogicstix),  FLEXSIM \cite{Flexsim}, and Arena \cite{Arena} support supply chain simulation. Anylogic supports the development of models using three approaches: DES, agent-based and system dynamics. AnyLogic and FlexSim also support optimization, which is built on top of the OptQuest \cite{OptQuest} optimization engine.  IBM supply chain solutions \cite{IBM} is a suite that provides AI-powered solutions for supply chain optimization. 
+%
+Among open-source libraries for supply chain simulation, MiniSCOT  \cite{miniSCOT} is a Python package for simulating supply chain models that was developed by Amazon and released as open-source in 2021 under an Apache licence. However it does not contain any documentation or usage guidelines and the latest commit was in 2021. \texttt{supplychainpy} \cite{Supplychainpy} is another Python library for simulating and analyzing supply chains which is primarily meant to replace existing spreadsheet-based workflows. It accepts demand data from a csv file and can generate performance metrics based on analytical formulae. It also supports a basic Monte Carlo simulation that generates normally distributed demand, based on the historical data in the csv file. The demand for each item/unit is then used to model a probable transaction history. Only single/independent inventory nodes can be modeled, without considering their dependencies or complex interconnections. For this a simple Monte-Carlo simulation is sufficient and a detailed discrete-event simulation is not required. The proposed library of InventOpt differs from this as it would provide detailed component models that can be connected together and simulated as concurrent entities using a discrete-event simulation approach.
+%
+For design exploration and gaining insights from the multi-dimensional simulation data, visualization is an important step. InventOpt will provide a GUI interface to visualise 3D slices of multi-dimensional data. For a similar purpose, Hypertools \cite{Hypertools} is an existing Python library for visualizing high-dimensional data. It also supports dimensionality reduction using the Principal Component Analysis (PCA) technique. 
+
+ 
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{\uppercase{Overview of} InventOpt}
+\label{sec:proposedtool}
+\input{section_inventopt}
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{\uppercase{Case Study}}
+\label{sec:casestudy}
+%The inventory optimization problem within a supply chain network, which is detailed in the case study, is outlined as follows:
+%A discrete event simulation model is constructed using the SimPy library for a modestly sized supply chain network in this study. We utilize visual aids to analyze the input-output relationship between the supply chain's input parameters and output measures. The system's performance is assessed at specific locations within the design space to develop the meta-models. The optimal input parameters for the supply chain are identified by applying optimizers to the meta-models. The results effectively guide the search for the optimal solution towards a promising region. Subsequently, a meta-model-based optimization is applied on a few sampled points within the promising region to further refine the search for the actual optimum within the design space. The obtained results and  insights gained from the experiment are summarized and discussed in Section \ref{sec:results}. 
+In this section, we present a detailed case study that highlights the approach of InventOpt tool proposed in the previous section. 
+\input{section_casestudy}
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{\uppercase{Results and Insights}}
+\label{sec:results}
+\input{section_results_insights}
+
+\bibliographystyle{apalike} 
+{\small \bibliography{example}}
+
+\end{document}
