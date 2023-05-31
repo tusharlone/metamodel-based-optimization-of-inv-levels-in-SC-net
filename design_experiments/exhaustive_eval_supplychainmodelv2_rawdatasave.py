@@ -3,6 +3,8 @@
 # It saves the obtained raw data and expected values in output files. 
 # The parameter values and output file names are hardcoded. Please go through the code before running it.
 # may need to delete already existing data files, if you want to obtain fresh data.
+import sys
+sys.path.append("src")
 import SupplyChainModelv2 as model
 import numpy as np
 import pandas as pd
@@ -79,7 +81,7 @@ def N_sim_runs(in_par):
             for j in i:
                 temp_nwise.append(j)
 
-        with open('../data/supplychain_datav2_720_60_raw.csv', 'a', newline='') as f_object:
+        with open('output/supplychain_datav2_720_60_raw.csv', 'a', newline='') as f_object:
             writer_object = writer(f_object)
             writer_object.writerow([lambda_arr_rate,Profit,num_days,num_sims,(p[0],p[1]),S_R1,s_R1,S_R2,s_R2,S_D1,s_D1,S_D2,s_D2,*avg_stats[-1],*temp_nwise])
             f_object.close()
@@ -91,7 +93,7 @@ def N_sim_runs(in_par):
         for j in i:
             temp.append(j)
     
-    with open('../data/supplychain_datav2_720_60_llel.csv', 'a', newline='') as f_object:
+    with open('output/supplychain_datav2_720_60_llel.csv', 'a', newline='') as f_object:
         writer_object = writer(f_object)
         writer_object.writerow([lambda_arr_rate,Profit,num_days,num_sims,(p[0],p[1]),S_R1,s_R1,S_R2,s_R2,S_D1,s_D1,S_D2,s_D2,*avg_stats,*temp])
         f_object.close()
@@ -103,7 +105,7 @@ Profit = 100
 num_days = 720
 num_sims = 60
 
-in_param_pd = pd.read_csv('../data/in_params.csv')
+in_param_pd = pd.read_csv('data/in_params.csv')
 in_param_arr = np.array((in_param_pd.values))
 pool = mp.Pool()
 pool = mp.Pool(processes=64)

@@ -5,7 +5,7 @@
 Consider a small supply chain, as shown in the figure 1.1 below. The supply chain contains two retailers, two distributors, and a manufacturer.
 
 <figure>
-<img src="img/simple_supply_chain_net.png" width=60%>
+<img src="notebook/img/simple_supply_chain_net.png" width=60%>
 <figcaption>Figure 1.1: Supply Chain Network.</figcaption>
 </figure>
 
@@ -56,7 +56,7 @@ __Inventory:__
 
 Please refer to figure 1.2.
 <figure>
-    <img src="img/supply_chain_net.png" width=60%>
+    <img src="notebook/img/supply_chain_net.png" width=60%>
 <figcaption>Figure 1.2: Supply Chain Network.</figcaption>
 </figure>
 

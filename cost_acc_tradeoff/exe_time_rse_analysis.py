@@ -1,4 +1,6 @@
 # run this script to analyze the exe time to obtain f(X) with reasonable RSE
+import sys
+sys.path.append("src")
 import SupplyChainModelv2 as model
 import numpy as np
 import pandas as pd
@@ -91,20 +93,33 @@ D_list[0]['S'] = 700
 D_list[0]['s'] = 350
 D_list[1]['S'] = 650
 D_list[1]['s'] = 400
+
+filename = 'data/exe_time_rse_ana.csv'
 print("days    sims    std    err    rse    mean    time")
-for num_days in [60,90,180,360,720,900,1080,1260]:
-    avg_stats_arr = []
-    for i in range(0,num_sims):
-        frac_cust_ret, avg_profit, avg_hold_c, avg_del_c, timed_avg_nitems, avg_net_profit, nwise_stats = model.single_sim_run(lam=lambda_arr_rate, D_list=D_list, R_list=R_list, p=p, NUM_OF_DAYS=num_days, P=Profit)
-        avg_stats_arr.append(avg_net_profit)
-    std_pnet = np.std(avg_stats_arr)
-    err_pnet = std_pnet/np.sqrt(num_sims)
-    rse_pnet = err_pnet*100/np.mean(avg_stats_arr)
-    exe_time = time.time()-start_time
-    #print("days=",num_days," sims=",i," std=",std_pnet," err=",err_pnet," rse=",rse_pnet," mean=",np.mean(avg_stats_arr)," time=", exe_time)
-    print(f"{num_days},   {num_sims},   {std_pnet:.2f},   {err_pnet:.2f},   {rse_pnet:.2f},   {np.mean(avg_stats_arr):.2f},   {exe_time:.2f}")
+#with open(filename, 'a', newline='') as f_object:
+#    writer_object = writer(f_object)
+#    writer_object.writerow(["days","sims","std","err","rse","mean","time"])
+#    f_object.close()
+for num_sims in [100, 200, 400]:
+    for num_days in range(100,1100,100):
+        avg_stats_arr = []
+        for i in range(0,num_sims):
+            frac_cust_ret, avg_profit, avg_hold_c, avg_del_c, timed_avg_nitems, avg_net_profit, nwise_stats = model.single_sim_run(lam=lambda_arr_rate, D_list=D_list, R_list=R_list, p=p, NUM_OF_DAYS=num_days, P=Profit)
+            avg_stats_arr.append(avg_net_profit)
+        std_pnet = np.std(avg_stats_arr)
+        err_pnet = std_pnet/np.sqrt(num_sims)
+        rse_pnet = err_pnet*100/np.mean(avg_stats_arr)
+        exe_time = time.time()-start_time
+        #print("days=",num_days," sims=",i," std=",std_pnet," err=",err_pnet," rse=",rse_pnet," mean=",np.mean(avg_stats_arr)," time=", exe_time)
+        print(f"{num_days},   {num_sims},   {std_pnet:.2f},   {err_pnet:.2f},   {rse_pnet:.2f},   {np.mean(avg_stats_arr):.2f},   {exe_time:.2f}")
+        with open(filename, 'a', newline='') as f_object:
+            writer_object = writer(f_object)
+            writer_object.writerow([num_days,num_sims,std_pnet,err_pnet,rse_pnet,np.mean(avg_stats_arr),exe_time])
+            f_object.close()
 #start_time = time.time()
 #num_days = 90
 #num_sims = 60
 #N_sim_runs(D_list=D_list,R_list=R_list,S_D1=600, s_D1=350, S_D2=650, s_D2=400, S_R1=350, s_R1=300, S_R2=300, s_R2=100,arr_rate=lambda_arr_rate,p=p,NUM_OF_DAYS=num_days,Profit=Profit,NUM_OF_SIMS=num_sims)
 #print("time using N_sim fun = ", time.time()-start_time)
+
+# output_filename = 'exe_time_rse_ana.csv'

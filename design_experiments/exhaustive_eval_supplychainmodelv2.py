@@ -2,6 +2,8 @@
 # This code runs the original SC model for given input points in file 'in_params.csv'
 # Parallelization is not implemented here. This code will run sequentially. 
 # (It is not recommended to run this. Code to attempt the same task with parallelization is included in the same folder.)
+import sys
+sys.path.append("src")
 import SupplyChainModelv2 as model
 import numpy as np
 import pandas as pd
@@ -83,14 +85,14 @@ Profit = 100
 num_days = 90
 num_sims = 60
 
-in_param_pd = pd.read_csv('../data/in_params.csv')
+in_param_pd = pd.read_csv('data/in_params.csv')
 in_param_arr = np.array((in_param_pd.values))
 
 for i in in_param_arr:
     avg_stats = N_sim_runs(D_list=D_list,R_list=R_list,
                S_D1=i[0], s_D1=i[1], S_D2=i[2], s_D2=i[3], S_R1=i[4], s_R1=i[5], S_R2=i[6], s_R2=i[7],
                arr_rate=lambda_arr_rate,p=p,NUM_OF_DAYS=num_days,Profit=Profit,NUM_OF_SIMS=num_sims)
-    with open('../data/supplychain_datav2_90_60.csv', 'a', newline='') as f_object:
+    with open('output/supplychain_datav2_90_60.csv', 'a', newline='') as f_object:
         writer_object = writer(f_object)
         writer_object.writerow([lambda_arr_rate, Profit, num_days, num_sims, (p[0],p[1]), *avg_stats])
         f_object.close()
